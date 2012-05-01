@@ -4,8 +4,10 @@ require 'sinatra'
 require 'haml'
 require 'httparty'
 
-CLIENT_ID = 'abcdefgh12345678'
-CLIENT_SECRET = 'secret'
+#CLIENT_ID = 'abcdefgh12345678'
+#CLIENT_SECRET = 'secret'
+CLIENT_ID = '3c3dc5cb-6e16-4a9c-8ecd-9b305d5cd1a7'
+CLIENT_SECRET = '38d35bb7-c01b-422c-83af-94cce1789f1f'
 RESOURCE_HOST = 'http://localhost:3000'
 
 enable :sessions
@@ -24,7 +26,7 @@ helpers do
   end
 
   def authorize_url
-    RESOURCE_HOST + "/oauth/authorize?client_id=#{CLIENT_ID}&client_secret=#{CLIENT_SECRET}&redirect_uri=#{redirect_uri}"
+    RESOURCE_HOST + "/oauth/authorize?response_type=code&client_id=#{CLIENT_ID}&client_secret=#{CLIENT_SECRET}&redirect_uri=#{redirect_uri}"
   end
   
   def access_token_url
@@ -37,6 +39,7 @@ get '/' do
 end
 
 get '/callback' do
+  puts CLIENT_ID
   response = HTTParty.post(access_token_url, :body => {
     :client_id => CLIENT_ID, 
     :client_secret => CLIENT_SECRET, 
@@ -46,6 +49,7 @@ get '/callback' do
   )
 
   session[:access_token] = response["access_token"]
+  puts "server sent the access token: #{response['access_token']}"
   redirect '/account'
 end
 
