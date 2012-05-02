@@ -4,10 +4,8 @@ require 'sinatra'
 require 'haml'
 require 'httparty'
 
-#CLIENT_ID = 'abcdefgh12345678'
-#CLIENT_SECRET = 'secret'
-CLIENT_ID = '3c3dc5cb-6e16-4a9c-8ecd-9b305d5cd1a7'
-CLIENT_SECRET = '38d35bb7-c01b-422c-83af-94cce1789f1f'
+CLIENT_ID = 'abcdefgh12345678'
+CLIENT_SECRET = 'secret'
 RESOURCE_HOST = 'http://localhost:3000'
 
 enable :sessions
